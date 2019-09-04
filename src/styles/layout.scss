@@ -1,0 +1,397 @@
+@charset "UTF-8";
+
+@import "variables.scss";
+
+html, body, .ibue-layout-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font: 14px/1.57 -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    color: $ibue-color-dark;
+    background-color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ibue-layout-wrapper {
+    display: flex;
+    height: calc(100% - 64px);
+}
+
+.ibue-layout-header {
+    height: 64px;
+}
+
+.ibue-layout-main {
+    flex: auto;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.ibue-layout-content {
+
+    .ibue-content-box {
+        padding: 16px;
+    }
+}
+
+.ibue-sidebar-menu {
+    height: 100%;
+}
+
+.ibue-layout-navbar {
+    display: flex;
+    width: 100%;
+    height: 64px;
+    background-color: $ibue-color-light;
+}
+
+.ibue-navbar-header {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    height: 100%;
+
+    .ibue-navbar-nav {
+        display: flex;
+    }
+}
+
+.ibue-navbar-nav {
+    display: flex;
+    align-items: center;
+
+    > li {
+        color: $ibue-color-dark;
+
+        .ibue-avatar {
+            display: flex;
+            height: 63px;
+            padding: 0 10px;
+            align-items: center;
+
+            span {
+                margin-top: 0;
+            }
+
+            .username {
+                font-size: 16px;
+                margin-left: 10px;
+            }
+        }
+
+        .el-button.el-tooltip {
+            height: 63px;
+            font-size: 24px;
+            color: inherit;
+            border: 0;
+            background-color: transparent;
+        }
+
+        a {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 63px;
+            color: inherit;
+
+            &:hover {
+                background-color: rgba(#ffffff, 0.1);
+            }
+        }
+
+        i,
+        span {
+            display: block;
+        }
+
+        [class^='icon-'] {
+            font-size: 22px;
+        }
+
+        span {
+            font-size: 13px;
+            margin-top: 4px;
+        }
+    }
+}
+
+.ibue-navbar-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    flex: 0 0 256px;
+    width: 256px;
+    max-width: 256px;
+    height: 100%;
+    color: $ibue-color-dark;
+    transition: all .3s cubic-bezier(0, 0, 0.2, 1);
+
+    &.collapse {
+        width: 80px;
+        flex: 0 0 80px;
+
+        .ibue-navbar-logo {
+            display: none;
+        }
+
+        .ibue-navbar-toggler {
+            width: 100%;
+        }
+    }
+
+    .ibue-navbar-logo {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+
+        > img {
+            display: block;
+            width: 44px;
+            height: 44px;
+        }
+    }
+
+    .ibue-navbar-toggler {
+        display: block;
+        width: 30px;
+        font-size: 24px;
+        text-align: center;
+    }
+}
+
+.ibue-layout-sidebar {
+    flex: 0 0 256px;
+    width: 256px;
+    max-width: 256px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 3px 0 3px -3px rgba(#000000, .2);
+    transition: all .3s cubic-bezier(0, 0, 0.2, 1);
+
+    &.collapse {
+        width: 80px;
+        flex: 0 0 80px;
+    }
+
+    .el-menu {
+        border-right: 0;
+    }
+
+    [class^="icon-"] {
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+        color: #ffffff;
+    }
+}
+
+.ibue-layout-tabs {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    background-color: #f5f6f7;
+    box-shadow: 0 3px 3px -3px rgba(#000000, .3);
+    z-index: 2;
+
+    .el-tabs--card > .el-tabs__header {
+        border-bottom: 0;
+    }
+}
+
+.ibue-layout-content {
+    height: calc(100% - 40px);
+
+    &.ibue-content-full {
+        height: 100%;
+    }
+
+    .ibue-content-box {
+        padding: 16px;
+    }
+}
+
+.ibue-layout-drawer {
+    position: relative;
+    flex: 0 0 320px;
+    width: 320px;
+    max-width: 320px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -3px 0 3px -3px rgba(#000000, .2);
+    transition: all .3s cubic-bezier(0, 0, 0.2, 1);
+    overflow: hidden;
+
+    &.collapse {
+        flex: 0;
+        width: 0;
+        border: 0;
+    }
+
+    .el-tabs {
+        height: 100%;
+    }
+
+    .el-tabs__content {
+        height: calc(100% - 40px);
+
+        .el-tab-pane {
+            height: 100%;
+        }
+    }
+}
+
+.ibue-layout-login {
+    width: 100%;
+    height: 100%;
+    background: url("../assets/skins/bg_03.jpg") no-repeat;
+    background-size: cover;
+
+    .ibue-login-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 520px;
+        background-color: rgba(#ffffff, .8);
+    }
+
+    .ibue-sup-label {
+        display: inline-block;
+        line-height: 1;
+        padding: 3px 6px;
+        font-size: 12px;
+        color: #ffffff;
+        background-color: $ibue-color-info;
+        border-radius: 15px;
+    }
+}
+
+.ibue-layout-tabs {
+    display: flex;
+    width: 100%;
+
+    .el-tabs--card > .el-tabs__header .el-tabs__nav {
+        border: 0;
+    }
+
+    .el-tabs--card > .el-tabs__header .el-tabs__item {
+        padding-left: 16px;
+        padding-right: 16px;
+        border: 0;
+        color: rgba($ibue-color-dark, 0.7);
+
+        &:hover {
+            color: $ibue-color-primary;
+        }
+
+        &.is-active {
+            color: $ibue-color-primary;
+        }
+
+        &.is-closable:hover {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .el-icon-close {
+            width: 14px;
+        }
+    }
+
+    .el-tabs__nav-next,
+    .el-tabs__nav-prev {
+        width: 30px;
+        line-height: 40px;
+        text-align: center;
+        z-index: 6;
+    }
+
+    .ibue-tabs-nav {
+        flex: auto;
+        overflow: hidden;
+    }
+
+    .ibue-tabs-dropdown {
+        flex: 0 0 60px;
+
+        .el-dropdown {
+            width: 100%;
+            text-align: center;
+        }
+
+        .el-dropdown-link {
+            line-height: 42px;
+            cursor: pointer;
+        }
+    }
+}
+
+.ibue-card {
+    color: $ibue-color-dark;
+    background-color: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+
+    &.is-bordered {
+        border: 1px solid $border-color;
+    }
+
+    &.is-shadow {
+        //
+    }
+
+    .ibue-card-header,
+    .ibue-card-body,
+    .ibue-card-footer {
+        position: relative;
+        padding: 16px;
+    }
+
+    .ibue-card-header {
+        //
+    }
+
+    .ibue-card-body {
+        //
+    }
+
+    .ibue-card-footer {
+        //
+    }
+}
+
+.ibue-card {
+
+    &[data-theme="dark"] {
+        color: #FFFFFF;
+    }
+
+    &[data-theme="classic"] {
+        color: lighten($ibue-color-dark, 70%)
+    }
+}
+
+.ibue-action-col {
+
+    .el-form-item__content {
+        margin-left: 0 !important;
+    }
+}
+
+.ibue-module-heading {
+
+    h5 {
+        letter-spacing: 1px;
+        font-weight: bold;
+        margin-bottom: 0
+    }
+}

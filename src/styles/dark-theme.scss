@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+@import "variables.scss";
+
+.ibue-theme-dark {
+    background-color: darken($ibue-color-dark, 6%);
+
+    .ibue-layout-navbar,
+    .ibue-layout-drawer,
+    .ibue-layout-tabs,
+    .ibue-layout-sidebar {
+        background-color: $ibue-color-dark;
+    }
+
+    .ibue-navbar-header {
+
+    }
+
+    .ibue-layout-tabs {
+        background-color: darken($ibue-color-dark, 3%);
+
+        .el-tabs--card > .el-tabs__header .el-tabs__item {
+            color: rgba(#ffffff, 0.5);
+        }
+    }
+
+    .ibue-navbar-brand {
+
+    }
+
+    /** 重写element-ui样式 */
+    .ibue-card {
+        background-color: $ibue-color-dark;
+
+        &.is-bordered {
+            border: 0;
+        }
+    }
+
+    .el-table th,
+    .el-table tr,
+    .el-table,
+    .el-table__expanded-cell {
+        background-color: transparent !important;
+    }
+
+    .el-table--striped .el-table__body tr.el-table__row--striped td {
+        background-color: rgba(#ffffff, .05);
+    }
+
+    .el-table th.is-leaf, .el-table td {
+        border-bottom: 1px solid rgba(#ffffff, .1);
+    }
+}

@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+$ibue-color-primary:                     #2196f3;
+$ibue-color-secondary:                   #6644da;
+$ibue-color-success:                     #4caf50;
+$ibue-color-warning:                     #FF9800;
+$ibue-color-danger:                      #f44336;
+$ibue-color-info:                        #00ACC1;
+$ibue-color-light:                       #f5f6f7;
+$ibue-color-dark:                        #232937;
+
+$ibue-base-size:                         8px;
+$border-color:                           #d5dcec;
+
+/** 顶部栏 */
+$ibue-layout-header-height:              64px;
+$ibue-layout-header-color:               $ibue-color-dark;
+
+/** 标签栏 */
+$ibue-layout-tags-height:                40px;
+
+/** 侧边栏 */
+$ibue-layout-aside-width:                240px;
+$menuBg:                                transparent;
+$menuText:                              #fff;
+$menuActiveText:                        #fff;
+
+$theme-classic:                         #252b3a;
+
+$themes: (
+        ( name: primary,     value: $ibue-color-primary ),
+        ( name: secondary,   value: $ibue-color-secondary ),
+        ( name: success,     value: $ibue-color-success ),
+        ( name: warning,     value: $ibue-color-warning ),
+        ( name: danger,      value: $ibue-color-danger ),
+        ( name: info,        value: $ibue-color-info ),
+        ( name: light,       value: $ibue-color-light ),
+        ( name: dark,        value: $ibue-color-dark ),
+        ( name: pink,        value: #e91e63 ),
+        ( name: red,         value: #f44336 ),
+        ( name: blue,        value: #1976d2 ),
+        ( name: light-blue,   value: #00aeef ),
+        ( name: purple,      value: #673ab7 ),
+        ( name: indigo,      value: #3f51b5 ),
+        ( name: cyan,        value: #00ACC1 ),
+        ( name: amber,       value: #ffa000 ),
+        ( name: orange,      value: #ff5722 ),
+        ( name: green,       value: #4caf50 ),
+        ( name: teal,        value: #00897b ),
+        ( name: brown,       value: #795548 ),
+        ( name: blue-grey,    value: #607d8b ),
+        ( name: black,       value: #141e2a ),
+        ( name: white,       value: #ffffff ),
+        ( name: transparent, value: transparent )
+);

@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+@import "variables.scss";
+
+.ibue-layout-navbar {
+    background-color: #ffffff;
+
+    &[class*="ibue-bg-"] {
+
+        .ibue-logo {
+
+            .ibue-brand {
+                color: #ffffff;
+            }
+        }
+
+        .ibue-navbar-nav {
+
+            > li {
+                color: #ffffff;
+            }
+        }
+    }
+
+    &.ibue-bg-white {
+
+        .ibue-logo {
+
+            .ibue-brand {
+                color: $ibue-color-dark;
+            }
+        }
+
+        .ibue-toggle-menu {
+            color: $ibue-color-dark;
+        }
+
+        .ibue-navbar-nav {
+
+            > li {
+                color: $ibue-color-dark;
+            }
+        }
+    }
+}
+
+.ibue-navbar-brand {
+    background-color: #ffffff;
+
+    &[class*="ibue-bg-"] {
+        color: #ffffff;
+    }
+
+    &.ibue-bg-white {
+        color: $ibue-color-dark;
+    }
+}
+
+.ibue-layout-sidebar {
+    background-color: #ffffff;
+
+    &[class*="ibue-bg-"] {
+
+    }
+
+    &.ibue-bg-white {
+
+    }
+
+}

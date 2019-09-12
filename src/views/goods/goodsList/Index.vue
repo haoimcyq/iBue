@@ -1,5 +1,60 @@
 <template>
     <section>
+        <ibue-card class="ibue-mb-16">
+            <header class="ibue-module-heading" slot="header">
+                <h5>{{ getModuleHeading }}</h5>
+            </header>
+            <el-form ref="form" :model="form" label-width="80px">
+                <el-row :gutter="16">
+                    <el-col :md="6">
+                        <el-form-item label="活动名称">
+                            <el-input v-model="form.name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="6">
+                        <el-form-item label="活动名称">
+                            <el-input v-model="form.name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="6">
+                        <el-form-item label="活动名称">
+                            <el-input v-model="form.name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="6">
+                        <el-form-item class="ibue-action-col">
+                            <el-button type="primary" @click="onSubmit">搜索</el-button>
+                            <el-button>重置</el-button>
+                            <el-button @click="showMore = !showMore" type="text">
+                                {{ showMore ? '收起' : '展开' }}
+                                <i
+                                        :class="showMore ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"
+                                ></i>
+                            </el-button>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <template v-if="showMore">
+                    <el-row :gutter="16">
+                        <el-col :md="6">
+                            <el-form-item label="活动名称">
+                                <el-input v-model="form.name"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="6">
+                            <el-form-item label="活动名称">
+                                <el-input v-model="form.name"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="6">
+                            <el-form-item label="活动名称">
+                                <el-input v-model="form.name"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                </template>
+            </el-form>
+        </ibue-card>
         <el-row :gutter="16">
             <el-col v-for="(item, index) in goodsData" :key="index" :sm="12" :md="6">
                 <ibue-card class="ibue-product-card ibue-mb-16">
@@ -51,6 +106,10 @@
         name: "Index",
         data() {
             return {
+                showMore: false,
+                form: {
+                    name: '',
+                },
                 value: 20,
                 goodsData: [],
                 currentPage: 1,
@@ -60,6 +119,11 @@
         },
         created() {
             this.fetchData()
+        },
+        computed: {
+            getModuleHeading() {
+                return this.$route.meta && this.$route.meta.title;
+            },
         },
         methods: {
             fetchData() {
@@ -82,6 +146,9 @@
                 this.currentPage = val;
                 this.fetchData()
             },
+            onSubmit() {
+                console.log('submit!');
+            }
         }
     }
 </script>

@@ -1,39 +1,40 @@
 @charset "UTF-8";
 
-@import "variables.scss";
+.ibue-theme-classic {
+    background-color: lighten($ibue-color-dark, 6%);
 
-.ibue-theme-dark {
-    background-color: darken($ibue-color-dark, 6%);
-
-    .ibue-layout-navbar,
-    .ibue-layout-drawer,
-    .ibue-layout-tabs,
-    .ibue-layout-sidebar {
-        background-color: $ibue-color-dark;
+    .ibue-layout-navbar {
+        background-color: lighten($ibue-color-dark, 6%);
     }
 
-    .ibue-navbar-header {
-
+    .ibue-navbar-brand,
+    .ibue-layout-sidebar {
+        background-color: lighten($ibue-color-dark, 2%);
+        box-shadow: none;
     }
 
     .ibue-layout-tabs {
-        background-color: darken($ibue-color-dark, 3%);
+        background-color: lighten($ibue-color-dark, 13%);
+        box-shadow: none;
+    }
+
+    .ibue-layout-drawer {
+        background-color: lighten($ibue-color-dark, 2%);
+        box-shadow: none;
+    }
+
+    .ibue-layout-tabs {
 
         .el-tabs--card > .el-tabs__header .el-tabs__item {
             color: rgba(#ffffff, 0.5);
         }
     }
 
-    .ibue-navbar-brand {
-
-    }
-
-    /** 重写element-ui样式 */
     .ibue-card {
-        background-color: $ibue-color-dark;
+        background-color: transparent;
 
         &.is-bordered {
-            border: 0;
+            border-color: lighten($ibue-color-dark, 14%);
         }
     }
 

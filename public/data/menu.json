@@ -381,6 +381,17 @@
                     "children": []
                 },
                 {
+                    "path": "customerAdd",
+                    "component": "customer/customerAdd/Index",
+                    "name": "CustomerAdd",
+                    "meta": {
+                        "title": "客户新建",
+                        "icon": "",
+                        "keepAlive": false
+                    },
+                    "children": []
+                },
+                {
                     "path": "complaints",
                     "component": "test/Index",
                     "name": "Complaints",

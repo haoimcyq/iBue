@@ -42,9 +42,9 @@
                                     class="layout-box"
                                     @click="handleChangeTopColor(item)"
                                 >
-                                    <span :class="item">header</span>
-                                    <span :class="sidebarColor">sidebar</span>
-                                    <span :class="brandColor">brand</span>
+                                    <span :class="`ibue-bg-${item}`">header</span>
+                                    <span :class="`ibue-bg-${sidebarColor}`">sidebar</span>
+                                    <span :class="`ibue-bg-${brandColor}`">brand</span>
                                     <span v-if="topColor === item">
                                         <i class="iconfont icon-selected"></i>
                                     </span>
@@ -59,9 +59,9 @@
                                     class="layout-box"
                                     @click="handleChangeBrandColor(item)"
                                 >
-                                    <span :class="topColor">header</span>
-                                    <span :class="sidebarColor">sidebar</span>
-                                    <span :class="item">brand</span>
+                                    <span :class="`ibue-bg-${topColor}`">header</span>
+                                    <span :class="`ibue-bg-${sidebarColor}`">sidebar</span>
+                                    <span :class="`ibue-bg-${item}`">brand</span>
                                     <span v-if="brandColor === item">
                                         <i class="iconfont icon-selected"></i>
                                     </span>
@@ -76,9 +76,9 @@
                                     class="layout-box"
                                     @click="handleChangeAsideColor(item)"
                                 >
-                                    <span :class="topColor">header</span>
-                                    <span :class="item">sidebar</span>
-                                    <span :class="brandColor">brand</span>
+                                    <span :class="`ibue-bg-${topColor}`">header</span>
+                                    <span :class="`ibue-bg-${item}`">sidebar</span>
+                                    <span :class="`ibue-bg-${brandColor}`">brand</span>
                                     <span v-if="sidebarColor === item">
                                         <i class="iconfont icon-selected"></i>
                                     </span>
@@ -151,15 +151,15 @@ export default {
                 'brown',
                 'dark',
                 'white'
-            ].map(v => `ibue-bg-${v}`);
+            ]
         },
         toggleThumbnailBg() {
             if (this.theme === 'dark') {
-                return 'darken'
+                return 'darken';
             } else if (this.theme === 'classic') {
-                return 'classic'
+                return 'classic';
             } else {
-                return 'lighten'
+                return 'lighten';
             }
         }
     },
@@ -205,19 +205,19 @@ export default {
 
             switch (val) {
                 case 'light':
-                    this.$store.dispatch('setting/setSidebarColor', 'ibue-bg-white');
-                    this.$store.dispatch('setting/setTopColor', 'ibue-bg-white');
-                    this.$store.dispatch('setting/setBrandColor', 'ibue-bg-white');
+                    this.$store.dispatch('setting/setSidebarColor', 'white');
+                    this.$store.dispatch('setting/setTopColor', 'white');
+                    this.$store.dispatch('setting/setBrandColor', 'white');
                     break;
                 case 'dark':
-                    this.$store.dispatch('setting/setSidebarColor', 'ibue-bg-dark');
-                    this.$store.dispatch('setting/setTopColor', 'ibue-bg-dark');
-                    this.$store.dispatch('setting/setBrandColor', 'ibue-bg-dark');
+                    this.$store.dispatch('setting/setSidebarColor', 'dark');
+                    this.$store.dispatch('setting/setTopColor', 'dark');
+                    this.$store.dispatch('setting/setBrandColor', 'dark');
                     break;
                 case 'classic':
-                    this.$store.dispatch('setting/setSidebarColor', 'ibue-bg-classic');
-                    this.$store.dispatch('setting/setTopColor', 'ibue-bg-classic');
-                    this.$store.dispatch('setting/setBrandColor', 'ibue-bg-dark');
+                    this.$store.dispatch('setting/setSidebarColor', 'classic');
+                    this.$store.dispatch('setting/setTopColor', 'classic');
+                    this.$store.dispatch('setting/setBrandColor', 'dark');
                     break;
                 default:
                     break;

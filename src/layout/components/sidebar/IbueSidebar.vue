@@ -1,5 +1,5 @@
 <template>
-    <aside class="ibue-layout-sidebar ibue-select-none" :class="[isCollapseSidebar ? 'collapse' : '', sidebarColor]">
+    <aside class="ibue-layout-sidebar ibue-select-none" :class="[isCollapseSidebar ? 'collapse' : '', getSidebarColor, getSidebarActiveColor]">
         <ibue-scrollbar>
             <div v-if="isEmptyMenu">没有发现菜单</div>
             <el-menu
@@ -32,11 +32,17 @@ export default {
     },
     computed: {
         /** 全局数据 */
-        ...mapGetters(['menu', 'layout', 'isCollapseSidebar', 'sidebarColor']),
+        ...mapGetters(['menu', 'layout', 'isCollapseSidebar', 'topColor', 'sidebarColor']),
         /** 是否是空菜单 */
         isEmptyMenu() {
             return false;
-        }
+        },
+        getSidebarColor() {
+            return `ibue-bg-${this.sidebarColor}`;
+        },
+        getSidebarActiveColor() {
+            return `sidebar-active-${this.topColor}`;
+        },
     },
     mounted() {
 
@@ -51,11 +57,3 @@ export default {
     }
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../../styles/variables.scss';
-
-.ibue-sidebar {
-    height: 100%;
-}
-</style>

@@ -1,7 +1,9 @@
 <template>
-  <section>
-    <ibue-card class="ibue-mb-16">
-      <header class="ibue-module-heading" slot="header"><h5>{{ getModuleHeading }}</h5></header>
+    <section>
+        <ibue-card class="ibue-mb-16">
+            <header class="ibue-module-heading" slot="header">
+                <h5>{{ getModuleHeading }}</h5>
+            </header>
       <el-form ref="form" :model="form" label-width="80px">
         <el-row :gutter="16">
           <el-col :md="6">
@@ -21,8 +23,8 @@
           </el-col>
           <el-col :md="6">
             <el-form-item class="ibue-action-col">
+                          <el-button>重置</el-button>
               <el-button type="primary" @click="onSubmit">搜索</el-button>
-              <el-button>重置</el-button>
               <el-button @click="showMore = !showMore" type="text">
                 {{ showMore ? "收起" : "展开" }}
                 <i
@@ -134,7 +136,6 @@
                     {
                         prop: 'action',
                         label: '操作',
-                        fixed: 'right',
                         width: 200,
                         render: (h, params) => {
                             return h('div', [

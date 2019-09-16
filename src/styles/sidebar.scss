@@ -1,6 +1,24 @@
 @charset "UTF-8";
 
-#app {
+.el-menu--collapse {
+    width: 80px !important;
+}
+
+.el-menu {
+    background-color: transparent !important;
+}
+
+.el-menu-item {
+    border-left: 3px solid transparent;
+}
+
+.el-menu-item.is-active {
+    color: rgba(#ffffff, 1) !important;
+    border-left: 3px solid $ibue-color-primary;
+    background-color: rgba($ibue-color-primary, .16) !important;
+}
+
+#app1 {
 
     .ibue-layout-sidebar {
 
@@ -135,6 +153,39 @@
     }
 }
 
+@for $i from 1 through length($themes) {
+    $item: nth($themes, $i);
+
+    .ibue-layout-sidebar.ibue-bg-white,
+    .ibue-layout-sidebar.ibue-bg-dark,
+    .ibue-layout-sidebar.ibue-bg-classic {
+
+        &.sidebar-active-#{map-get($item, name)} {
+
+            .el-menu-item.is-active {
+                color: map-get($item, value) !important;
+                border-left: 3px solid map-get($item, value);
+                background-color: rgba(map-get($item, value), .2) !important;
+            }
+        }
+    }
+}
+
+.ibue-layout-sidebar.ibue-bg-white,
+.ibue-layout-sidebar.ibue-bg-dark {
+
+    &.sidebar-active-white,
+    &.sidebar-active-dark,
+    &.sidebar-active-classic {
+
+        .el-menu-item.is-active {
+            color: $ibue-color-primary !important;
+            border-left: 3px solid $ibue-color-primary;
+            background-color: rgba($ibue-color-primary, .2) !important;
+        }
+    }
+}
+
 .ibue-layout-sidebar {
 
     .ibue-menu-icon {
@@ -148,17 +199,24 @@
     }
 
     &[class*="ibue-bg-"] {
+
+        .el-menu-item.is-active {
+            color: #ffffff !important;
+            border-left: 3px solid #ffffff;
+            background-color: rgba(#ffffff, .2) !important;
+        }
+
         //
         .el-menu-item,
         .el-submenu__title,
         .el-submenu__title i,
         .ibue-menu-icon {
-            color: #FFFFFF;
+            color: rgba(#ffffff, .86);
         }
     }
 
     &.ibue-bg-white {
-        //
+
         .el-menu-item,
         .el-submenu__title,
         .el-submenu__title i,

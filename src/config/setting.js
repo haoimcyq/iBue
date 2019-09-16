@@ -47,13 +47,13 @@ export const MATERIAL = {
 export const THEME = 'light';
 
 /** 侧边栏背景 */
-export const SIDEBAR_COLOR = 'ibue-bg-white';
+export const SIDEBAR_COLOR = 'white';
 
 /** 顶部背景 */
-export const TOP_COLOR = 'ibue-bg-white';
+export const TOP_COLOR = 'white';
 
 /** 商标背景 */
-export const BRAND_COLOR = 'ibue-bg-white';
+export const BRAND_COLOR = 'white';
 
 /** 插槽 */
 export const GUTTER = 16;

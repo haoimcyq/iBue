@@ -1,6 +1,6 @@
 <template>
-    <header class="ibue-layout-navbar ibue-select-none" :class="topColor">
-        <aside class="ibue-navbar-brand" :class="[brandColor, isCollapseSidebar ? 'collapse' : '']">
+    <header class="ibue-layout-navbar ibue-select-none" :class="getTopColor">
+        <aside class="ibue-navbar-brand" :class="[getBrandColor, isCollapseSidebar ? 'collapse' : '']">
             <span class="ibue-navbar-logo">
                 <img :src="logo" />
                 <span> iBue Admin Pro</span>
@@ -116,7 +116,13 @@ export default {
         });
     },
     computed: {
-        ...mapGetters(['brandColor', 'topColor', 'isCollapseSidebar'])
+        ...mapGetters(['brandColor', 'topColor', 'isCollapseSidebar']),
+        getTopColor() {
+            return `ibue-bg-${this.topColor}`;
+        },
+        getBrandColor() {
+            return `ibue-bg-${this.brandColor}`;
+        }
     },
     methods: {
         /** 全屏 */

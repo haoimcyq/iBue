@@ -23,8 +23,8 @@
           </el-col>
           <el-col :md="6">
             <el-form-item class="ibue-action-col">
-              <el-button type="primary" @click="onSubmit">搜索</el-button>
               <el-button>重置</el-button>
+              <el-button type="primary" @click="onSubmit">搜索</el-button>
               <el-button @click="showMore = !showMore" type="text">
                 {{ showMore ? '收起' : '展开' }}
                 <i
@@ -148,7 +148,6 @@ export default {
         {
           prop: 'action',
           label: '操作',
-          fixed: 'right',
           width: 200,
           render: (h, params) => {
             return h('div', [

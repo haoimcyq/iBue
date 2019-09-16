@@ -1,5 +1,5 @@
 <template>
-    <section :class="toggleTheme" class="ibue-layout-container">
+    <section :class="[toggleTheme, getModulesTheme]" class="ibue-layout-container">
         <ibue-navbar />
         <section class="ibue-layout-wrapper">
             <ibue-sidebar />
@@ -28,19 +28,20 @@ export default {
         IbueNavbar,
         IbueSidebar,
         IbueTabs,
-        IbueDrawer
+        IbueDrawer,
     },
     data() {
-        return {
-
-        };
+        return {};
     },
     computed: {
-        ...mapGetters(['theme', 'showTabs']),
+        ...mapGetters(['theme', 'showTabs', 'brandColor', 'topColor', 'sidebarColor']),
         /** 主题切换 */
         toggleTheme() {
-            return `ibue-theme-${this.theme}`
-        }
+            return ` ibue-global-theme-${this.theme} `;
+        },
+        getModulesTheme() {
+            return ` ibue-brand-theme-${this.brandColor} ibue-sidebar-theme-${this.sidebarColor} ibue-navbar-theme-${this.topColor} `;
+        },
     },
     mounted() {
         /** 屏幕检测 */
@@ -50,15 +51,15 @@ export default {
 
         /** 通过$once来监听定时器，在beforeDestroy钩子可以被清除 */
         this.$once('hook:beforeDestroy', () => {
-            window.removeEventListener('resize', this.getScreen, false)
+            window.removeEventListener('resize', this.getScreen, false);
         });
     },
     methods: {
         getScreen() {
             setTimeout(() => {
-                this.$store.dispatch('setting/toggleScreen', getScreen())
+                this.$store.dispatch('setting/toggleScreen', getScreen());
             }, 0);
-        }
-    }
+        },
+    },
 };
 </script>

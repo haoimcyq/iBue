@@ -101,7 +101,7 @@
                 },
                 {
                     "path": "goodsAdd",
-                    "component": "test/Index",
+                    "component": "goods/goodsAdd/Index",
                     "name": "GoodsAdd",
                     "meta": {
                         "title": "商品添加",
@@ -112,7 +112,7 @@
                 },
                 {
                     "path": "categories",
-                    "component": "test/Index",
+                    "component": "goods/categories/Index",
                     "name": "Categories",
                     "meta": {
                         "title": "分类管理",
@@ -597,7 +597,7 @@
             ]
         },
         {
-            "path": "/sys",
+            "path": "/system",
             "redirect": "",
             "component": "Layout",
             "name": "System",

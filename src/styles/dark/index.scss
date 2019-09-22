@@ -76,7 +76,7 @@
 
     .el-input__inner {
         color: rgba(#ffffff, .86);
-        border-color: rgba(#ffffff, .1);
-        background-color: rgba(#ffffff, .06);
+        border-color: transparent;
+        background-color: darken($ibue-color-dark, 4%);
     }
 }

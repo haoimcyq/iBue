@@ -50,5 +50,6 @@ $themes: (
         ( name: blue-grey,   value: #607d8b ),
         ( name: black,       value: #141e2a ),
         ( name: white,       value: #ffffff ),
-        ( name: transparent, value: transparent )
+        ( name: transparent, value: transparent ),
+        (name: classic,      value: lighten($ibue-color-dark, 2%) )
 );

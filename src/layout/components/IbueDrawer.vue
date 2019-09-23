@@ -29,9 +29,9 @@
                         <h6 class="ibue-mt-0 ibue-mb-16">主题</h6>
                         <div class="ibue-pb-16">
                             <el-radio-group v-model="themeRadio" @change="handleChangeTheme">
-                                <el-radio label="light" class="ibue-mb-16">简约风格</el-radio>
-                                <el-radio label="dark" class="ibue-mb-16">暗黑风格</el-radio>
-                                <el-radio label="classic">经典风格</el-radio>
+                                <el-radio label="light" class="ibue-mb-16">简约</el-radio>
+                                <el-radio label="dark" class="ibue-mb-16">暗黑</el-radio>
+                                <el-radio label="classic">经典</el-radio>
                             </el-radio-group>
                         </div>
                         <h6>Navbar背景</h6>
@@ -183,17 +183,34 @@ export default {
         handleTabClick() {
             //
         },
+      setBodyClasses(classes) {
+        let className = document.body.className;
+        let reg = /ibue-navbar-theme-(\w+)/;
+
+        if (classes.includes('navbar')) {
+          reg = /ibue-navbar-theme-(\w+)/;
+        } else if (classes.includes('sidebar')) {
+          reg = /ibue-sidebar-theme-(\w+)/;
+        } else if (classes.includes('brand')) {
+          reg = /ibue-brand-theme-(\w+)/;
+        }
+
+        document.body.className = className.replace(reg, classes);
+      },
         /** 修改侧边栏背景色 */
-        handleChangeAsideColor(colorName) {
-            this.$store.dispatch('setting/setSidebarColor', colorName);
+        async handleChangeAsideColor(colorName) {
+            await this.$store.dispatch('setting/setSidebarColor', colorName);
+          this.setBodyClasses(`ibue-sidebar-theme-${colorName}`);
         },
         /** 修改顶部背景色 */
-        handleChangeTopColor(colorName) {
-            this.$store.dispatch('setting/setTopColor', colorName);
+        async handleChangeTopColor(colorName) {
+            await this.$store.dispatch('setting/setTopColor', colorName);
+            this.setBodyClasses(`ibue-navbar-theme-${colorName}`);
         },
         /** 修改LOGO背景色 */
-        handleChangeBrandColor(colorName) {
-            this.$store.dispatch('setting/setBrandColor', colorName);
+        async handleChangeBrandColor(colorName) {
+            await this.$store.dispatch('setting/setBrandColor', colorName);
+          this.setBodyClasses(`ibue-brand-theme-${colorName}`);
         },
         /** 关闭抽屉栏 */
         handleDrawerClose() {
@@ -233,7 +250,60 @@ export default {
 <style lang="scss">
 @import '../../styles/variables.scss';
 
+.ibue-global-theme-light {
+
+    .ibue-layout-drawer .el-tabs--card > .el-tabs__header {
+        color: $ibue-color-dark;
+        background-color: #f5f6f7;
+
+        &.is-active {
+            color: $ibue-color-primary;
+        }
+    }
+}
+
+.ibue-global-theme-dark {
+
+    .ibue-layout-drawer .el-tabs--card > .el-tabs__header {
+        color: #FFFFFF;
+        background-color: lighten($ibue-color-dark, 3%);
+    }
+
+    .ibue-layout-drawer .el-tabs__item {
+        color: #FFFFFF;
+
+        &.is-active {
+            color: $ibue-color-primary;
+        }
+    }
+
+    .ibue-drawer-close {
+        color: #FFFFFF;
+    }
+}
+
+.ibue-global-theme-classic {
+
+    .ibue-layout-drawer .el-tabs--card > .el-tabs__header {
+        color: #FFFFFF;
+        background-color: lighten($ibue-color-dark, 6%);
+    }
+
+    .ibue-layout-drawer .el-tabs__item {
+        color: #FFFFFF;
+
+        &.is-active {
+            color: $ibue-color-primary;
+        }
+    }
+
+    .ibue-drawer-close {
+        color: #FFFFFF;
+    }
+}
+
 .ibue-layout-drawer {
+
     .el-tabs--card > .el-tabs__header .el-tabs__nav {
         border: 0;
     }

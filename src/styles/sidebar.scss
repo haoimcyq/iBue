@@ -5,17 +5,21 @@
 }
 
 .el-menu {
-    background-color: transparent !important;
+    background-color: inherit;
 }
 
 .el-menu-item {
-    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+}
+
+.el-menu-item * {
+    vertical-align: top;
 }
 
 .el-menu-item.is-active {
-    color: rgba(#ffffff, 1) !important;
-    border-left: 3px solid $ibue-color-primary;
-    background-color: rgba($ibue-color-primary, .16) !important;
+    color: rgba(#ffffff, 1);
+    border-right: 3px solid $ibue-color-primary;
+    background-color: rgba($ibue-color-primary, .16);
 }
 
 #app1 {
@@ -156,32 +160,136 @@
 @for $i from 1 through length($themes) {
     $item: nth($themes, $i);
 
-    .ibue-layout-sidebar.ibue-bg-white,
-    .ibue-layout-sidebar.ibue-bg-dark,
-    .ibue-layout-sidebar.ibue-bg-classic {
+    .ibue-navbar-theme-#{map-get($item, name)} {
 
-        &.sidebar-active-#{map-get($item, name)} {
+        .ibue-layout-sidebar.ibue-bg-white {
 
-            .el-menu-item.is-active {
-                color: map-get($item, value) !important;
-                border-left: 3px solid map-get($item, value);
-                background-color: rgba(map-get($item, value), .2) !important;
+            .el-menu-item.is-active,
+            .el-submenu > .el-submenu__title:hover,
+            .el-menu-item:hover {
+                @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
+                    color: $ibue-color-primary;
+                    border-right: 3px solid $ibue-color-primary;
+                    background-color: rgba($ibue-color-primary, .2);
+                } @else {
+                    color: map-get($item, value) !important;
+                    border-right: 3px solid map-get($item, value);
+                    background-color: rgba(map-get($item, value), .2);
+                }
+            }
+        }
+
+        .ibue-layout-sidebar.ibue-bg-dark,
+        .ibue-layout-sidebar.ibue-bg-classic {
+
+            .el-menu-item.is-active,
+            .el-submenu > .el-submenu__title:hover,
+            .el-menu-item:hover {
+                @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
+                    color: $ibue-color-primary;
+                } @else {
+                    color: map-get($item, value);
+                }
+            }
+        }
+
+        &.ibue-global-theme-light {
+
+            .el-menu--vertical {
+
+                .el-menu--popup {
+                    background-color: #FFFFFF;
+
+                    .el-menu-item {
+                        color: $ibue-color-dark;
+
+                        &.is-active, &:hover {
+                            color: map-get($item, value) !important;
+                            border-right: 3px solid map-get($item, value);
+                            background-color: rgba(map-get($item, value), .2);
+                        }
+                    }
+                }
+            }
+        }
+
+        &.ibue-global-theme-dark {
+
+            .el-menu--vertical {
+
+                .el-menu-item {
+                    color: #FFFFFF;
+
+                    &.is-active, &:hover {
+                        @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
+                            color: $ibue-color-primary;
+                        } @else {
+                            color: map-get($item, value);
+                        }
+
+                        border-color: transparent;
+                        background-color: darken($ibue-color-dark, 4%);
+                    }
+                }
+
+                .el-menu--popup {
+                    background-color: $ibue-color-dark;
+                }
+            }
+        }
+
+        &.ibue-global-theme-classic {
+
+            .el-menu--vertical {
+
+                .el-menu--popup {
+                    background-color: lighten($ibue-color-dark, 2%);
+
+                    .el-menu-item {
+                        color: #FFFFFF;
+
+                        &.is-active,
+                        &:hover {
+                            @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
+                                color: $ibue-color-primary;
+                            } @else {
+                                color: map-get($item, value);
+                            }
+
+                            border-color: transparent;
+                            background-color: darken($ibue-color-dark, 2%);
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-.ibue-layout-sidebar.ibue-bg-white,
-.ibue-layout-sidebar.ibue-bg-dark {
+.ibue-global-theme-dark {
 
-    &.sidebar-active-white,
-    &.sidebar-active-dark,
-    &.sidebar-active-classic {
+    .ibue-layout-sidebar {
 
-        .el-menu-item.is-active {
-            color: $ibue-color-primary !important;
-            border-left: 3px solid $ibue-color-primary;
-            background-color: rgba($ibue-color-primary, .2) !important;
+        .el-menu-item.is-active,
+        .el-submenu > .el-submenu__title:hover,
+        .el-menu-item:hover {
+            color: $ibue-color-primary;
+            border-color: transparent;
+            background-color: darken($ibue-color-dark, 4%);
+        }
+    }
+}
+
+.ibue-global-theme-classic {
+
+    .ibue-layout-sidebar {
+
+        .el-menu-item.is-active,
+        .el-submenu > .el-submenu__title:hover,
+        .el-menu-item:hover {
+            color: $ibue-color-primary;
+            border-color: transparent;
+            background-color: darken($ibue-color-dark, 2%);
         }
     }
 }
@@ -199,19 +307,12 @@
     }
 
     &[class*="ibue-bg-"] {
-
-        .el-menu-item.is-active {
-            color: #ffffff !important;
-            border-left: 3px solid #ffffff;
-            background-color: rgba(#ffffff, .2) !important;
-        }
-
         //
         .el-menu-item,
         .el-submenu__title,
         .el-submenu__title i,
         .ibue-menu-icon {
-            color: rgba(#ffffff, .86);
+            color: rgba(#ffffff, 1);
         }
     }
 
@@ -239,7 +340,7 @@
         .el-submenu__icon-arrow {
             display: none;
         }
-        //
+
         .el-submenu {
 
             &>.el-submenu__title {
@@ -259,26 +360,24 @@
 // when menu collapsed
 .el-menu--vertical {
 
-    &>.el-menu {
+    & > .el-menu {
         .svg-icon {
             font-size: 18px;
             margin-right: 10px;
         }
     }
 
-    .nest-menu .el-submenu>.el-submenu__title,
+    //.nest-menu .el-submenu > .el-submenu__title,
     .el-menu-item {
         font-size: 16px;
 
         &:hover {
-            // you can use $subMenuHover
-            color: #FFFFFF;
-            background-color: $ibue-color-primary !important;
+            //color: #FFFFFF;
+            //background-color: $ibue-color-primary !important;
         }
     }
 
-    // the scroll bar appears when the subMenu is too long
-    >.el-menu--popup {
+    > .el-menu--popup {
         max-height: 100vh;
         overflow-y: auto;
 

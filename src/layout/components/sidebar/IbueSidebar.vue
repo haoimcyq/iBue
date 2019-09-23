@@ -1,5 +1,5 @@
 <template>
-    <aside class="ibue-layout-sidebar ibue-select-none" :class="[isCollapseSidebar ? 'collapse' : '', getSidebarColor, getSidebarActiveColor]">
+    <aside class="ibue-layout-sidebar ibue-select-none" :class="[hasCollapse, getSidebarColor, getSidebarActiveColor]">
         <ibue-scrollbar>
             <div v-if="isEmptyMenu">没有发现菜单</div>
             <el-menu
@@ -41,8 +41,11 @@ export default {
             return `ibue-bg-${this.sidebarColor}`;
         },
         getSidebarActiveColor() {
-            return `sidebar-active-${this.topColor}`;
+            return `sidebar-menu-active-${this.topColor}`;
         },
+        hasCollapse() {
+          return this.isCollapseSidebar ? 'collapse' : ''
+        }
     },
     mounted() {
 

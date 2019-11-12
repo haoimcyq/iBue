@@ -16,9 +16,14 @@
     vertical-align: top;
 }
 
+.el-submenu__title,
+.el-menu-item {
+    border-left: 3px solid transparent;
+}
+
 .el-menu-item.is-active {
     color: rgba(#ffffff, 1);
-    border-right: 3px solid $ibue-color-primary;
+    border-left: 3px solid $ibue-color-primary;
     background-color: rgba($ibue-color-primary, .16);
 }
 
@@ -169,11 +174,11 @@
             .el-menu-item:hover {
                 @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
                     color: $ibue-color-primary;
-                    border-right: 3px solid $ibue-color-primary;
+                    border-left: 3px solid $ibue-color-primary;
                     background-color: rgba($ibue-color-primary, .2);
                 } @else {
                     color: map-get($item, value) !important;
-                    border-right: 3px solid map-get($item, value);
+                    border-left: 3px solid map-get($item, value);
                     background-color: rgba(map-get($item, value), .2);
                 }
             }
@@ -205,7 +210,7 @@
 
                         &.is-active, &:hover {
                             color: map-get($item, value) !important;
-                            border-right: 3px solid map-get($item, value);
+                            border-left: 3px solid map-get($item, value);
                             background-color: rgba(map-get($item, value), .2);
                         }
                     }

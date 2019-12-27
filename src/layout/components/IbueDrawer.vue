@@ -183,34 +183,17 @@ export default {
         handleTabClick() {
             //
         },
-      setBodyClasses(classes) {
-        let className = document.body.className;
-        let reg = /ibue-navbar-theme-(\w+)/;
-
-        if (classes.includes('navbar')) {
-          reg = /ibue-navbar-theme-(\w+)/;
-        } else if (classes.includes('sidebar')) {
-          reg = /ibue-sidebar-theme-(\w+)/;
-        } else if (classes.includes('brand')) {
-          reg = /ibue-brand-theme-(\w+)/;
-        }
-
-        document.body.className = className.replace(reg, classes);
-      },
         /** 修改侧边栏背景色 */
         async handleChangeAsideColor(colorName) {
             await this.$store.dispatch('setting/setSidebarColor', colorName);
-          this.setBodyClasses(`ibue-sidebar-theme-${colorName}`);
         },
         /** 修改顶部背景色 */
         async handleChangeTopColor(colorName) {
             await this.$store.dispatch('setting/setTopColor', colorName);
-            this.setBodyClasses(`ibue-navbar-theme-${colorName}`);
         },
         /** 修改LOGO背景色 */
         async handleChangeBrandColor(colorName) {
             await this.$store.dispatch('setting/setBrandColor', colorName);
-          this.setBodyClasses(`ibue-brand-theme-${colorName}`);
         },
         /** 关闭抽屉栏 */
         handleDrawerClose() {
@@ -239,9 +222,6 @@ export default {
                 default:
                     break;
             }
-
-            /** 解决echarts主题切换 */
-            window.location.reload();
         }
     }
 };
@@ -440,7 +420,7 @@ export default {
 
 .ibue-message-list {
     width: 100%;
-    
+
     > li {
         display: flex;
         align-items: center;

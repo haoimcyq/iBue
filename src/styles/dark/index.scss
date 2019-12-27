@@ -43,11 +43,11 @@
     }
 
     .el-table--striped .el-table__body tr.el-table__row--striped td {
-        background-color: lighten($ibue-color-dark, 14%);
+        background-color: lighten($ibue-color-dark, 6%);
     }
 
     .el-table th.is-leaf, .el-table td {
-        border-bottom: 1px solid lighten($ibue-color-dark, 14%);
+        border-bottom: 1px solid lighten($ibue-color-dark, 6%);
     }
 
     .el-table__fixed::before, .el-table__fixed-right::before {
@@ -55,11 +55,11 @@
     }
 
     .el-table::before, .el-table--group::after, .el-table--border::after {
-        background-color: lighten($ibue-color-dark, 14%);
+        background-color: lighten($ibue-color-dark, 6%);
     }
 
-    .el-table tbody tr:hover>td {
-        background-color: lighten($ibue-color-dark, 14%);
+    .el-table tbody tr:hover > td {
+        background-color: lighten($ibue-color-dark, 10%);
     }
 
     .el-table {

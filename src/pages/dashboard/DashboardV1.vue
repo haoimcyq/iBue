@@ -23,12 +23,12 @@
                 <ibue-card>
                     <header class="ibue-flex ibue-justify-content-between ibue-align-content-center ibue-mb-16">
                         <div><h4>iBue Pro</h4></div>
-                        <el-button-group>
-                            <el-button size="small">今日</el-button>
-                            <el-button size="small">本周</el-button>
-                            <el-button size="small">当月</el-button>
-                            <el-button size="small">本季度</el-button>
-                        </el-button-group>
+                        <el-radio-group v-model="date" size="small">
+                            <el-radio-button label="今日"></el-radio-button>
+                            <el-radio-button label="本周"></el-radio-button>
+                            <el-radio-button label="当月"></el-radio-button>
+                            <el-radio-button label="本季度"></el-radio-button>
+                        </el-radio-group>
                     </header>
                     <ibue-chart :options="options" height="400px" />
                 </ibue-card>
@@ -37,12 +37,12 @@
                 <ibue-card>
                     <header class="ibue-flex ibue-justify-content-between ibue-align-content-center ibue-mb-16">
                         <div><h4>iBue Pro</h4></div>
-                        <el-button-group>
-                            <el-button size="small">今日</el-button>
-                            <el-button size="small">本周</el-button>
-                            <el-button size="small">当月</el-button>
-                            <el-button size="small">本季度</el-button>
-                        </el-button-group>
+                        <el-radio-group v-model="date2" size="small">
+                            <el-radio-button label="今日"></el-radio-button>
+                            <el-radio-button label="本周"></el-radio-button>
+                            <el-radio-button label="当月"></el-radio-button>
+                            <el-radio-button label="本季度"></el-radio-button>
+                        </el-radio-group>
                     </header>
                     <ibue-chart :options="options2" height="400px" />
                 </ibue-card>
@@ -53,12 +53,12 @@
                 <ibue-card>
                     <header class="ibue-flex ibue-justify-content-between ibue-align-content-center ibue-mb-16">
                         <div><h4>iBue Pro</h4></div>
-                        <el-button-group>
-                            <el-button size="small">今日</el-button>
-                            <el-button size="small">本周</el-button>
-                            <el-button size="small">当月</el-button>
-                            <el-button size="small">本季度</el-button>
-                        </el-button-group>
+                        <el-radio-group v-model="date3" size="small">
+                            <el-radio-button label="今日"></el-radio-button>
+                            <el-radio-button label="本周"></el-radio-button>
+                            <el-radio-button label="当月"></el-radio-button>
+                            <el-radio-button label="本季度"></el-radio-button>
+                        </el-radio-group>
                     </header>
                     <el-table :data="tableData" style="width: 100%">
                         <el-table-column label="日期">
@@ -114,6 +114,9 @@ export default {
         }
 
         return {
+            date: '今日',
+            date2: '当月',
+            date3: '本周',
             widget: [
                 {
                     title: '今日销售额',

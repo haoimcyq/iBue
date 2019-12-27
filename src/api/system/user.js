@@ -1,42 +1,14 @@
 import { request } from '@/utils/http';
-
-const MODULE_API_NS = '/sys/user';
+import { API_SYS_USER } from '@/config/apiTypes';
 
 export default {
-    /** 获取数据 */
-    list(params) {
-        return request(`${MODULE_API_NS}/list`, 'GET', {
-            query: params
-        });
-    },
-    /** 新增 */
-    add(params) {
-        return request(`${MODULE_API_NS}/add`, 'POST', {
-            query: params
-        });
-    },
-    /** 更新 */
-    modify(params) {
-        return request(`${MODULE_API_NS}/modify`, 'PUT', {
-            query: params
-        });
-    },
-    /** 删除 */
-    delete(params) {
-        return request(`${MODULE_API_NS}/delete`, 'DELETE', {
-            query: params
-        });
-    },
-    /** 获取用户信息 */
-    getInfo(params) {
-        return request(`${MODULE_API_NS}/getInfo`, 'GET', {
-            query: params
-        });
-    },
-    /** 加载用户菜单 */
-    getMenu(params) {
-        return request(`${MODULE_API_NS}/getMenu`, 'GET', {
-            query: params
-        });
-    }
+    list: request(`${API_SYS_USER}/list`),
+    add: request(`${API_SYS_USER}/add`),
+    modify: request(`${API_SYS_USER}/modify`),
+    remove: request(`${API_SYS_USER}/remove`),
+    getInfo: request(`${API_SYS_USER}/getInfo`, 'GET'),
+    getMenu: request(`${API_SYS_USER}/getMenu`),
+    login: request(`${API_SYS_USER}/login`),
+    logout: request(`${API_SYS_USER}/logout`),
+    changePassword: request(`${API_SYS_USER}/changePassword`),
 };

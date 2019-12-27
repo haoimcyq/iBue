@@ -1,6 +1,6 @@
 import Layout from '@/layout/Index';
 
-export default [
+export const pages = [
     {
         path: '/login',
         name: '登录页',

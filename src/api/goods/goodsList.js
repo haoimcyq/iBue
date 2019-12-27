@@ -1,50 +1,35 @@
 import { request } from '@/utils/http';
-
-const MODULE_API_NS = '/goods/goodsList';
-
-/**
- * RESTful API设计
- * GET：获取
- * POST：新增
- * PUT：更新
- * DELETE：删除
- */
+import { API_GOODS_LIST } from '@/config/apiTypes';
 
 export default {
-    /** 获取数据 */
-    list(params) {
-        return request(`${MODULE_API_NS}/list`, 'GET', {
-            query: params
+    /** 鑾峰彇鏁版嵁 */
+    list(query) {
+        return request(`${API_GOODS_LIST}/list`, 'post', {
+            query
         });
     },
-    /** 新增 */
-    add(params) {
-        return request(`${MODULE_API_NS}/add`, 'POST', {
-            query: params
+    /** 鏂板 */
+    add(query) {
+        return request(`${API_GOODS_LIST}/add`, 'post', {
+            query
         });
     },
-    /** 更新 */
-    modify(params) {
-        return request(`${MODULE_API_NS}/modify`, 'PUT', {
-            query: params
+    /** 鏇存柊 */
+    modify(query) {
+        return request(`${API_GOODS_LIST}/modify`, 'put', {
+            query
         });
     },
-    /** 删除 */
-    delete(params) {
-        return request(`${MODULE_API_NS}/delete`, 'DELETE', {
-            query: params
+    /** 鍒犻櫎 */
+    remove(query) {
+        return request(`${API_GOODS_LIST}/delete`, 'delete', {
+            query
         });
     },
-    /** 获取用户信息 */
-    getInfo(params) {
-        return request(`${MODULE_API_NS}/getInfo`, 'GET', {
-            query: params
-        });
-    },
-    /** 加载用户菜单 */
-    getMenu(params) {
-        return request(`${MODULE_API_NS}/getMenu`, 'GET', {
-            query: params
+    /** 鑾峰彇鐢ㄦ埛淇℃伅 */
+    getInfo(query) {
+        return request(`${API_GOODS_LIST}/getInfo`, 'get', {
+            query
         });
     }
 };

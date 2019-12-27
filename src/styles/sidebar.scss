@@ -8,158 +8,32 @@
     background-color: inherit;
 }
 
-.el-menu-item {
-    border-right: 3px solid transparent;
+.el-submenu__title i {
+    color: inherit;
 }
 
 .el-menu-item * {
-    vertical-align: top;
+    //vertical-align: top;
 }
 
-.el-submenu__title,
+.ibue-layout-sidebar .el-menu-item .ibue-menu-icon {
+    font-size: 16px;
+}
+
 .el-menu-item {
     border-left: 3px solid transparent;
+    transition: all .3s;
 }
 
 .el-menu-item.is-active {
-    color: rgba(#ffffff, 1);
-    border-left: 3px solid $ibue-color-primary;
-    background-color: rgba($ibue-color-primary, .16);
+    border-left-color: #ffffff;
 }
 
-#app1 {
-
-    .ibue-layout-sidebar {
-
-        .el-menu {
-            background-color: transparent;
-        }
-
-        .horizontal-collapse-transition {
-            transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
-        }
-
-        .is-horizontal {
-            display: none;
-        }
-
-        a {
-            display: inline-block;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .svg-icon {
-            font-size: 18px;
-            margin-right: 10px;
-        }
-
-        .el-menu {
-            border: none;
-            height: 100%;
-            width: 100% !important;
-        }
-
-        // menu hover
-        .submenu-title-noDropdown,
-        .el-submenu__title {
-            &:hover {
-                background-color: rgba(#ffffff, .1) !important;
-            }
-        }
-
-        .is-active {
-
-            > .el-submenu__title {
-
-            }
-        }
-
-        .is-active {
-            background-color: rgba(#ffffff, .06) !important;
-        }
-
-        & .nest-menu .el-submenu>.el-submenu__title,
-        & .el-submenu .el-menu-item {
-            min-width: 240px !important;
-
-            &:hover {
-                border-left: 3px solid rgba(#ffffff, 1);
-                background-color: rgba(#ffffff, .1) !important;
-            }
-        }
-    }
-
-    .hideSidebar {
-        .sidebar-container {
-            width: 64px !important;
-        }
-
-        .main-container {
-            margin-left: 64px;
-        }
-
-        .svg-icon {
-            margin-right: 0;
-        }
-
-        .submenu-title-noDropdown {
-            padding: 0 !important;
-            position: relative;
-
-            .svg-icon {
-                margin-left: 20px;
-            }
-
-            span {
-                display: none;
-            }
-
-            .el-tooltip {
-                padding: 0 !important;
-
-                .svg-icon {
-                    font-size: 20px;
-                    margin-left: 10px;
-                }
-            }
-        }
-
-        .el-submenu {
-            overflow: hidden;
-
-            &>.el-submenu__title {
-                padding: 0 !important;
-
-                .svg-icon {
-                    font-size: 20px;
-                    margin-left: 20px;
-                }
-
-                .el-submenu__icon-arrow {
-                    display: none;
-                }
-            }
-        }
-
-        .el-menu--collapse {
-            .el-submenu {
-                &>.el-submenu__title {
-                    &>span {
-                        height: 0;
-                        width: 0;
-                        overflow: hidden;
-                        visibility: hidden;
-                        display: inline-block;
-                    }
-                }
-            }
-        }
-    }
-
-    .el-menu--collapse .el-menu .el-submenu {
-        min-width: 240px !important;
-    }
+.el-submenu__title:focus, .el-submenu__title:hover,
+.el-menu-item:hover,
+.el-menu-item.is-active {
+    outline: 0 !important;
+    background-color: rgba(#ffffff, .16);
 }
 
 @for $i from 1 through length($themes) {
@@ -167,134 +41,28 @@
 
     .ibue-navbar-theme-#{map-get($item, name)} {
 
-        .ibue-layout-sidebar.ibue-bg-white {
-
-            .el-menu-item.is-active,
-            .el-submenu > .el-submenu__title:hover,
-            .el-menu-item:hover {
-                @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
-                    color: $ibue-color-primary;
-                    border-left: 3px solid $ibue-color-primary;
-                    background-color: rgba($ibue-color-primary, .2);
-                } @else {
-                    color: map-get($item, value) !important;
-                    border-left: 3px solid map-get($item, value);
-                    background-color: rgba(map-get($item, value), .2);
-                }
-            }
-        }
-
+        .ibue-layout-sidebar.ibue-bg-white,
         .ibue-layout-sidebar.ibue-bg-dark,
         .ibue-layout-sidebar.ibue-bg-classic {
-
-            .el-menu-item.is-active,
-            .el-submenu > .el-submenu__title:hover,
-            .el-menu-item:hover {
-                @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
-                    color: $ibue-color-primary;
-                } @else {
-                    color: map-get($item, value);
+            @if (map-get($item, name) == dark or map-get($item, name) == classic or map-get($item, name) == white) {
+                .el-submenu__title:focus, .el-submenu__title:hover,
+                .el-menu-item:hover,
+                .el-menu-item.is-active {
+                    background-color: rgba($ibue-color-primary, .16) !important;
+                }
+                .el-menu-item.is-active {
+                    border-left-color: $ibue-color-primary
+                }
+            } @else {
+                .el-submenu__title:focus, .el-submenu__title:hover,
+                .el-menu-item:hover,
+                .el-menu-item.is-active {
+                    background-color: rgba(map-get($item, value), .16) !important;
+                }
+                .el-menu-item.is-active {
+                    border-left-color: map-get($item, value)
                 }
             }
-        }
-
-        &.ibue-global-theme-light {
-
-            .el-menu--vertical {
-
-                .el-menu--popup {
-                    background-color: #FFFFFF;
-
-                    .el-menu-item {
-                        color: $ibue-color-dark;
-
-                        &.is-active, &:hover {
-                            color: map-get($item, value) !important;
-                            border-left: 3px solid map-get($item, value);
-                            background-color: rgba(map-get($item, value), .2);
-                        }
-                    }
-                }
-            }
-        }
-
-        &.ibue-global-theme-dark {
-
-            .el-menu--vertical {
-
-                .el-menu-item {
-                    color: #FFFFFF;
-
-                    &.is-active, &:hover {
-                        @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
-                            color: $ibue-color-primary;
-                        } @else {
-                            color: map-get($item, value);
-                        }
-
-                        border-color: transparent;
-                        background-color: darken($ibue-color-dark, 4%);
-                    }
-                }
-
-                .el-menu--popup {
-                    background-color: $ibue-color-dark;
-                }
-            }
-        }
-
-        &.ibue-global-theme-classic {
-
-            .el-menu--vertical {
-
-                .el-menu--popup {
-                    background-color: lighten($ibue-color-dark, 2%);
-
-                    .el-menu-item {
-                        color: #FFFFFF;
-
-                        &.is-active,
-                        &:hover {
-                            @if(map-get($item, name) == white or map-get($item, name) == dark or map-get($item, name) == classic) {
-                                color: $ibue-color-primary;
-                            } @else {
-                                color: map-get($item, value);
-                            }
-
-                            border-color: transparent;
-                            background-color: darken($ibue-color-dark, 2%);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-.ibue-global-theme-dark {
-
-    .ibue-layout-sidebar {
-
-        .el-menu-item.is-active,
-        .el-submenu > .el-submenu__title:hover,
-        .el-menu-item:hover {
-            color: $ibue-color-primary;
-            border-color: transparent;
-            background-color: darken($ibue-color-dark, 4%);
-        }
-    }
-}
-
-.ibue-global-theme-classic {
-
-    .ibue-layout-sidebar {
-
-        .el-menu-item.is-active,
-        .el-submenu > .el-submenu__title:hover,
-        .el-menu-item:hover {
-            color: $ibue-color-primary;
-            border-color: transparent;
-            background-color: darken($ibue-color-dark, 2%);
         }
     }
 }
@@ -304,31 +72,12 @@
     .ibue-menu-icon {
         font-size: 20px;
         margin-right: 10px;
+        transition: all .3s;
     }
 
     .el-menu-item,
     .el-submenu__title {
         font-size: 16px;
-    }
-
-    &[class*="ibue-bg-"] {
-        //
-        .el-menu-item,
-        .el-submenu__title,
-        .el-submenu__title i,
-        .ibue-menu-icon {
-            color: rgba(#ffffff, 1);
-        }
-    }
-
-    &.ibue-bg-white {
-
-        .el-menu-item,
-        .el-submenu__title,
-        .el-submenu__title i,
-        .ibue-menu-icon {
-            color: $ibue-color-dark;
-        }
     }
 
     .el-menu--collapse {
@@ -348,9 +97,9 @@
 
         .el-submenu {
 
-            &>.el-submenu__title {
+            & > .el-submenu__title {
 
-                &>span {
+                & > span {
                     height: 0;
                     width: 0;
                     overflow: hidden;
@@ -366,6 +115,7 @@
 .el-menu--vertical {
 
     & > .el-menu {
+
         .svg-icon {
             font-size: 18px;
             margin-right: 10px;

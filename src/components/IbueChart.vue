@@ -5,9 +5,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import echarts from 'echarts';
-import { modern } from '@/config/modern';
+import { getChartTheme } from '@/config/modern';
 /** 主题 */
-echarts.registerTheme('modern', modern);
+echarts.registerTheme('modern', getChartTheme());
 
 export default {
     name: 'IbueChart',
@@ -45,6 +45,7 @@ export default {
         },
         theme() {
             if (this.chart) {
+                echarts.registerTheme('modern', getChartTheme());
                 this.chart.clear();
                 this.chart.dispose();
                 this.chart = null;

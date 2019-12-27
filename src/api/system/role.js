@@ -1,30 +1,21 @@
 import { request } from '@/utils/http';
-
-const MODULE_API_NS = '/sys/role';
+import { API_SYS_ROLE } from '@/config/apiTypes';
 
 export default {
     /** 获取数据 */
-    list (params) {
-        return request(`${MODULE_API_NS}/list`, {
-            query: params
-        })
+    list(query) {
+        return request(`${API_SYS_ROLE}/list`, 'post', { query });
     },
     /** 新增 */
-    add (params) {
-        return request(`${MODULE_API_NS}/add`, {
-            query: params
-        })
+    add(query) {
+        return request(`${API_SYS_ROLE}/add`, 'post', { query });
     },
     /** 更新 */
-    modify (params) {
-        return request(`${MODULE_API_NS}/modify`, {
-            query: params
-        })
+    modify(query) {
+        return request(`${API_SYS_ROLE}/modify`, 'put', { query });
     },
     /** 删除 */
-    delete (params) {
-        return request(`${MODULE_API_NS}/delete`, {
-            query: params
-        })
+    remove(query) {
+        return request(`${API_SYS_ROLE}/delete`, 'delete', { query });
     }
 }

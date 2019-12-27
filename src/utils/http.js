@@ -1,22 +1,27 @@
 import axios from 'axios';
-import QS from 'qs';
+import { cloneDeep } from 'lodash';
 import router from '@/router/index';
 import Cookies from 'js-cookie';
 import { TIMEOUT } from '@/config/setting';
+import QS from 'qs';
 
-//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.withCredentials = true;
-axios.defaults.timeout = TIMEOUT;
+const instance = axios.create({
+    baseURL: '',
+    timeout: TIMEOUT,
+});
+
+instance.defaults.headers.post['Content-Type'] =
+    'application/x-www-form-urlencoded';
 
 /** 请求拦截器 */
-axios.interceptors.request.use(
+instance.interceptors.request.use(
     config => {
         config.headers.token = Cookies.get('token');
         return config;
     },
     error => {
         return Promise.reject(error);
-    }
+    },
 );
 
 /**
@@ -29,7 +34,7 @@ axios.interceptors.request.use(
  * 4xx：客户端错误--请求有语法错误或请求无法实现
  * 5xx：服务器端错误--服务器未能实现合法的请求
  */
-axios.interceptors.response.use(
+instance.interceptors.response.use(
     response => {
         return response;
     },
@@ -42,8 +47,8 @@ axios.interceptors.response.use(
                     router.replace({
                         path: '/login',
                         query: {
-                            redirect: router.currentRoute.fullPath
-                        }
+                            redirect: router.currentRoute.fullPath,
+                        },
                     });
                     break;
 
@@ -80,32 +85,54 @@ axios.interceptors.response.use(
 
             return Promise.reject(error.response);
         }
-    }
+    },
 );
 
 /**
- * @param {String} url [请求的url地址]
- * @param {String} method [请求的方法]
- * @param {Object} params [请求时携带的参数]
+ * @param {String} url [请求地址]
+ * @param {String} method [请求方法]
  */
-export async function request(url, method, params = {}) {
-    if (!String(url).trim()) return;
-    /** 默认方法 */
-    let _method =
-        typeof method === 'string' && ['GET', 'POST', 'DELETE', 'PUT'].includes(method.toUpperCase()) ? method : 'POST';
+export function request(url, method = 'post') {
+    return function(data, config = {}) {
+        data = cloneDeep(data);
+        config = cloneDeep(config);
+        let query = {};
 
-    /** 转为大写 */
-    _method = _method.toUpperCase();
+        data = QS.stringify(data);
+        method = method && method.toLowerCase();
 
-    /** method为对象类型 */
-    if (Object.prototype.toString.call(method) === '[object Object]') {
-        params = method;
-    }
+        if (['delete', 'get', 'head', 'options'].includes(method)) {
+            query.params = data;
+            query = Object.assign(query, config);
+            config = null;
+        }
+        query = data;
 
-    /** 初始化参数和配置 */
-    let query = params.query || {};
+        return new Promise((resolve, reject) => {
+            instance[method] &&
+                instance[method](url, query, config)
+                    .then(({ data, status, statusText }) => {
+                        resolve({ data, status, statusText });
+                    })
+                    .catch(error => {
+                        const { response, message } = error;
+                        let status = '',
+                            statusText = '',
+                            data = null;
 
-    query = _method === 'POST' || _method === 'PUT' ? QS.stringify(query) : query;
-
-    return await axios[_method.toLowerCase()](url, query);
+                        if (response) {
+                            status = response.status;
+                            statusText = response.statusText;
+                            data = response.data;
+                        }
+                        reject({
+                            success: false,
+                            data,
+                            status,
+                            statusText,
+                            message,
+                        });
+                    });
+        });
+    };
 }

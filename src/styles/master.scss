@@ -10,3 +10,12 @@
 @import "dark/index";
 @import "classic/index";
 @import "sidebar";
+
+.searchForm {
+    margin-top: 6px;
+    margin-bottom: 32px;
+}
+
+.overflow-label .el-form-item__label {
+    line-height: 20px;
+}

@@ -5,7 +5,11 @@
                 <i v-if="item.meta && item.meta.icon" class="ibue-menu-icon iconfont" :class="item.meta.icon"></i>
                 <span slot="title">{{ item.meta.title }}</span>
             </el-menu-item>
-            <el-submenu v-else :key="item.path" :index="resolvePath(item.path)">
+            <el-submenu
+                    v-else
+                    :key="item.path"
+                    :index="resolvePath(item.path)"
+                    :popper-append-to-body="true">
                 <template slot="title">
                     <i v-if="item.meta && item.meta.icon" class="ibue-menu-icon iconfont" :class="item.meta.icon"></i>
                     <span slot="title">{{ item.meta.title }}</span>

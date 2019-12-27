@@ -1,7 +1,7 @@
-import login from '@/api/common/login';
 import user from '@/api/system/user';
 import Cookies from 'js-cookie';
 import { resetRouter } from '@/router';
+import { Notification } from 'element-ui';
 
 export default {
     namespaced: true,
@@ -10,7 +10,7 @@ export default {
         loginName: '',
         avatar: '',
         roles: [],
-        menu: []
+        menu: [],
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -28,20 +28,29 @@ export default {
         },
         SET_MENU: (state, menu) => {
             state.menu = menu;
-        }
+        },
     },
     actions: {
-        /* 用户登录 */
+        /** 用户登录 */
         login({ commit }, userInfo) {
-            const { username, password } = userInfo;
-
             return new Promise((resolve, reject) => {
-                login
-                    .login({ username: username.trim(), password: password })
-                    .then(response => {
-                        const { data } = response.data;
-                        commit('SET_TOKEN', data.token);
-                        resolve();
+                user.login(userInfo)
+                    .then(({ data }) => {
+                        console.log(data);
+                        const {
+                            status,
+                            result: { access_token },
+                        } = data;
+
+                        if (status === 'OK') {
+                            commit('SET_TOKEN', access_token);
+                            resolve();
+                        } else {
+                            Notification.success({
+                                title: 'Mock请求',
+                                message: '无效的token',
+                            });
+                        }
                     })
                     .catch(error => {
                         reject(error);
@@ -53,19 +62,17 @@ export default {
         getInfo({ commit, state }) {
             return new Promise((resolve, reject) => {
                 user.getInfo({ token: state.token })
-                    .then(response => {
-                        const { data } = response;
+                    .then(({ data }) => {
+                        const { status, result } = data;
 
-                        if (!data) {
+                        if (status === 'FAIL') {
                             reject('Verification failed, please Login again.');
                         }
 
-                        const { roles, avatar } = data;
+                        commit('SET_ROLES', result.roles);
 
-                        commit('SET_ROLES', [roles]);
-
-                        commit('SET_AVATAR', avatar);
-                        resolve(data);
+                        commit('SET_AVATAR', result.avatar);
+                        resolve(result);
                     })
                     .catch(error => {
                         reject(error);
@@ -76,8 +83,7 @@ export default {
         /* 退出登录 */
         logout({ commit, state }) {
             return new Promise((resolve, reject) => {
-                login
-                    .logout(state.token)
+                user.logout(state.token)
                     .then(() => {
                         commit('SET_TOKEN', '');
                         commit('SET_ROLES', []);
@@ -96,25 +102,29 @@ export default {
             return new Promise(resolve => {
                 commit('SET_TOKEN', '');
                 commit('SET_ROLES', []);
-                //removeToken()
                 resolve();
             });
         },
 
         /** 创建菜单 */
-        setMenu({ commit }, menu) {
+        setMenu({ commit }) {
             return new Promise((resolve, reject) => {
                 user.getMenu()
-                    .then(response => {
-                        const { data } = response;
+                    .then(({ data }) => {
+                        const {
+                            status,
+                            result: { routes },
+                        } = data;
 
-                        commit('SET_MENU', data.data.routes);
-                        resolve(data);
+                        if (status === 'OK') {
+                            commit('SET_MENU', routes);
+                            resolve(routes);
+                        }
                     })
                     .catch(error => {
                         reject(error);
                     });
             });
-        }
-    }
+        },
+    },
 };

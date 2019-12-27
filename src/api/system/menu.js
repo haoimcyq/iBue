@@ -4,7 +4,7 @@ const MODULE_API_NS = '/sys/menu';
 
 export default {
     /** 获取数据 */
-    list (params) {
+    list(params) {
         return request(`${MODULE_API_NS}/list`, {
             query: params
         })

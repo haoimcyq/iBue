@@ -6,7 +6,7 @@ $ibue-color-success:                     #28a745;
 $ibue-color-warning:                     #FF9800;
 $ibue-color-danger:                      #f44336;
 $ibue-color-info:                        #00ACC1;
-$ibue-color-light:                       #f5f6f7;
+$ibue-color-light:                       #f6f7f8;
 $ibue-color-dark:                        #232f3f;
 
 $ibue-base-size:                         8px;
@@ -51,5 +51,5 @@ $themes: (
         ( name: black,       value: #141e2a ),
         ( name: white,       value: #ffffff ),
         ( name: transparent, value: transparent ),
-        (name: classic,      value: lighten($ibue-color-dark, 2%) )
+        ( name: classic,     value: lighten($ibue-color-dark, 2%) )
 );

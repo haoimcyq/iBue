@@ -57,3 +57,5 @@ export const BRAND_COLOR = 'white';
 
 /** 插槽 */
 export const GUTTER = 16;
+
+export const API_PREFIX = '/api/v4/';

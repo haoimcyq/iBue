@@ -1,5 +1,5 @@
 <template>
-    <section class="ibue-layout-container">
+    <section class="ibue-layout-container" :class="getClasses">
         <ibue-navbar />
         <section class="ibue-layout-wrapper">
             <ibue-sidebar />
@@ -31,24 +31,22 @@ export default {
         IbueDrawer,
     },
     data() {
-        return {};
+        return {
+
+        }
     },
     computed: {
         ...mapGetters(['theme', 'showTabs', 'brandColor', 'topColor', 'sidebarColor']),
+        getClasses() {
+            return [
+                `ibue-global-theme-${this.theme}`,
+                `ibue-brand-theme-${this.brandColor}`,
+                `ibue-sidebar-theme-${this.sidebarColor}`,
+                `ibue-navbar-theme-${this.topColor}`
+            ]
+        }
     },
     mounted() {
-      this.$nextTick(() => {
-        /** 主题 */
-        let classes = [
-          `ibue-global-theme-${this.theme}`,
-          `ibue-brand-theme-${this.brandColor}`,
-          `ibue-sidebar-theme-${this.sidebarColor}`,
-          `ibue-navbar-theme-${this.topColor}`
-        ];
-
-        document.body.classList.add(...classes);
-      });
-
         /** 屏幕检测 */
         this.$store.dispatch('setting/toggleScreen', getScreen());
 
@@ -60,6 +58,9 @@ export default {
         });
     },
     methods: {
+        toggleClasses() {
+            //
+        },
         getScreen() {
             setTimeout(() => {
                 this.$store.dispatch('setting/toggleScreen', getScreen());

@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import nprogress from 'nprogress';
 import store from '@/store/index';
-import { createRoutes } from './createRoutes';
-import pages from './pages';
+import { menusToRoutes } from './generateRoutes';
+import { pages } from './pages';
 
 Vue.use(VueRouter);
 
@@ -10,7 +11,7 @@ const constantRoutes = [...pages];
 
 const createRouter = () =>
     new VueRouter({
-        routes: constantRoutes
+        routes: constantRoutes,
     });
 
 const router = createRouter();
@@ -20,23 +21,21 @@ const router = createRouter();
  * 权限验证
  */
 router.beforeEach(async (to, from, next) => {
+    nprogress.start();
+
+    document.title = (to.meta && `iBue Pro -${to.meta.title}`) || 'iBue Pro';
+
     if (store.getters.token) {
         if (to.path === '/login') {
             next({ path: '/' });
+            nprogress.done();
         } else {
             if (store.getters.roles.length === 0) {
-                /** 使用命名空间在调用action时必须填写模块名称 */
                 await store
                     .dispatch('user/getInfo')
-                    .then(response => {
+                    .then(() => {
                         store.dispatch('user/setMenu').then(async response => {
-                            await router.addRoutes(createRoutes(response.data.routes).concat([
-                                {
-                                    path: '*',
-                                    redirect: '/404',
-                                    component: () => import('@/pages/404')
-                                }
-                            ]));
+                            await router.addRoutes(menusToRoutes(response));
                             next({ ...to, replace: true });
                         });
                     })
@@ -53,12 +52,13 @@ router.beforeEach(async (to, from, next) => {
             next();
         } else {
             next(`/login?redirect=${to.path}`);
+            nprogress.done();
         }
     }
 });
 
-router.afterEach((to, from) => {
-    document.title = (to.meta && `iBue Pro -${to.meta.title}`) || 'iBue Pro';
+router.afterEach(() => {
+    nprogress.done();
 });
 
 /** 重置路由 */

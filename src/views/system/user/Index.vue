@@ -1,41 +1,72 @@
 <template>
     <section>
-        <ibue-crud :columns="columns" :options="options" :data="tableData" :pagination="pagination" @fetch-data="fetchData"></ibue-crud>
+        <ibue-card>
+            <ibue-crud
+                    :loading="loading"
+                :columns="columns"
+                :options="options"
+                :data="tableData"
+                :pagination="pagination"
+                :search-form="searchForm"
+                :submit-form="submitForm"
+                @search="handleSearch"
+                @submit="handleSubmit"
+                @fetch-data="fetchData">
+            </ibue-crud>
+        </ibue-card>
     </section>
 </template>
 
 <script>
-import { columns, options, pagination } from '@/models/system/user';
-import User from '@/api/system/user';
+    import { columns, options, pagination, searchForm, submitForm } from '@/models/system/user';
+    import UserService from '@/api/system/user';
 
-export default {
-    name: 'User',
-    data() {
-        return {
-            columns,
-            options,
-            pagination,
-            tableData: []
-        };
-    },
-    created() {
-        this.getList()
-    },
-    methods: {
-        getList() {
-            User.list().then(response => {
-                const { code, data } = response.data;
-
-                if (code === 0) {
-                    this.tableData = data;
-                }
-            })
+    export default {
+        name: 'User',
+        data() {
+            return {
+                loading: true,
+                columns,
+                options,
+                pagination,
+                searchForm,
+                submitForm,
+                tableData: []
+            };
         },
-        fetchData(val) {
+        created() {
+            this.fetchData()
+        },
+        methods: {
+            fetchData(pagination, params) {
+                this.loading = true;
+                UserService.list(Object.assign({}, pagination, params)).then(response => {
+                    const { status, result } = response.data;
 
+                    if (status === "OK") {
+                        this.tableData = result.items;
+                        this.pagination.total = result.total;
+                    }
+
+                    this.loading = false;
+                });
+            },
+            handleSearch(data) {
+                this.pagination = {
+                    pageSize: 20,
+                    currentPage: 1,
+                    total: 0
+                };
+                this.tableData = [];
+                this.fetchData(this.pagination, data);
+            },
+            handleSubmit(data, closeDialog) {
+                closeDialog();
+                this.$message({
+                    type: 'success',
+                    message: '成功修改!'
+                });
+            }
         }
-    }
-};
+    };
 </script>
-
-<style scoped></style>

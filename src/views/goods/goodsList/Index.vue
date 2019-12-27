@@ -1,23 +1,20 @@
 <template>
     <section>
         <ibue-card class="ibue-mb-16">
-            <header class="ibue-module-heading" slot="header">
-                <h5>{{ getModuleHeading }}</h5>
-            </header>
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" :model="form" label-width="80px" class="searchForm">
                 <el-row :gutter="16">
                     <el-col :md="6">
-                        <el-form-item label="活动名称">
+                        <el-form-item label="商品标题">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
-                        <el-form-item label="活动名称">
+                        <el-form-item label="商品价格">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
-                        <el-form-item label="活动名称">
+                        <el-form-item label="评分">
                             <el-input v-model="form.name"></el-input>
                         </el-form-item>
                     </el-col>
@@ -37,12 +34,12 @@
                 <template v-if="showMore">
                     <el-row :gutter="16">
                         <el-col :md="6">
-                            <el-form-item label="活动名称">
+                            <el-form-item label="库存">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
                         </el-col>
                         <el-col :md="6">
-                            <el-form-item label="活动名称">
+                            <el-form-item label="商品状态">
                                 <el-input v-model="form.name"></el-input>
                             </el-form-item>
                         </el-col>
@@ -59,11 +56,15 @@
             <el-col v-for="(item, index) in goodsData" :key="index" :sm="12" :md="6">
                 <ibue-card class="ibue-product-card ibue-mb-16">
                     <div class="media">
-                        <img :src="item.image" :alt="item.title" draggable="false">
+                        <el-image :src="item.image" :alt="item.title" draggable="false" fit="fit">
+                            <div slot="placeholder" class="image-slot">
+                                <i class="el-icon-picture-outline"></i>
+                            </div>
+                        </el-image>
                     </div>
                     <div>
                         <h4 class="ibue-text-overflow ibue-mt-16">{{ item.title }}</h4>
-                        <p>{{ item.content }}</p>
+                        <p>{{ item.details }}</p>
                     </div>
                     <div>
                         <h4 class="ibue-text-danger">${{ item.price }}</h4>
@@ -89,18 +90,18 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[20, 30, 40, 50]"
-                    :page-size="20"
+                    :current-page="pagination.currentPage"
+                    :page-sizes="[20, 40, 60, 80, 100, 200]"
+                    :page-size="pagination.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="total">
+                    :total="pagination.total">
             </el-pagination>
         </div>
     </section>
 </template>
 
 <script>
-    import GoodsList from '@/api/goods/goodsList';
+    import goodsList from '@/api/goods/goodsList';
 
     export default {
         name: "Index",
@@ -112,42 +113,40 @@
                 },
                 value: 20,
                 goodsData: [],
-                currentPage: 1,
-                pageSize: 20,
-                total: 0
+                pagination: {
+                    currentPage: 1,
+                    pageSize: 20,
+                    total: 0
+                }
             }
         },
         created() {
-            this.fetchData()
+            this.fetchData(this.pagination)
         },
         computed: {
-            getModuleHeading() {
-                return this.$route.meta && this.$route.meta.title;
-            },
+
         },
         methods: {
-            fetchData() {
-                GoodsList.list({
-                    currentPage: this.currentPage,
-                    pageSize: this.pageSize
-                }).then(response => {
-                    const { code, data } = response.data;
+            fetchData(pagination) {
+                goodsList.list(pagination).then(response => {
+                    const { status, result } = response.data;
 
-                    if (code === 0) {
-                        this.goodsData = data;
-                        this.total = response.data.total;
+                    if (status === "OK") {
+                        this.goodsData = result.items;
+                        this.pagination.total = result.total;
                     }
                 })
             },
             handleSizeChange(val) {
-                this.pageSize = val
+                this.pagination.pageSize = val;
+                this.fetchData(this.pagination);
             },
             handleCurrentChange(val) {
-                this.currentPage = val;
-                this.fetchData()
+                this.pagination.currentPage = val;
+                this.fetchData(this.pagination)
             },
             onSubmit() {
-                console.log('submit!');
+                this.fetchData(this.pagination)
             }
         }
     }
@@ -155,15 +154,22 @@
 
 <style lang="scss" scoped>
     .ibue-product-card {
-        //
-        .media {
-            width: 100%;
-            min-height: 120px;
 
-            img {
-                display: block;
-                width: 100%;
-                object-fit: cover;
+        .media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f6f7;
+            min-height: 120px;
+            margin: -24px;
+            margin-bottom: auto;
+        }
+
+        .image-slot {
+
+            i {
+                font-size: 64px;
+                color: #888888;
             }
         }
     }

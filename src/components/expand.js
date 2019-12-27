@@ -1,6 +1,7 @@
 export default {
     name: 'Expand',
     functional: true,
+    inject: ['ibueCrud'],
     props: {
         row: Object,
         render: Function,

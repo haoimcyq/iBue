@@ -21,7 +21,7 @@
     "jspdf": "^1.5.3",
     "lodash": "^4.17.15",
     "mockjs": "^1.0.1-beta3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.1.0",
     "qs": "^6.9.1",
